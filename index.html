@@ -101,7 +101,9 @@
 
     <script>
         // Created by ChatGPT on 2025-01-13
-        document.getElementById('url').textContent = "URL: " + window.location.href;
+        const urlParams = new URLSearchParams(window.location.search);
+        const referrer = urlParams.get('ref') || document.referrer;
+        document.getElementById('url').textContent = "URL: " + (referrer ? referrer : "");
 
         // Generate floating particles
         for (let i = 0; i < 100; i++) {
