@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SORRY PERMANENTLY CLOSED</title>
+    <style>
+        /* Created by ChatGPT on 2025-01-13 */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to bottom, #0077b6, #001f33);
+            color: #fff;
+            overflow: hidden;
+            position: relative;
+        }
+        .container {
+            text-align: center;
+            position: relative;
+            animation: fadeIn 2s ease-in-out;
+        }
+        h1 {
+            font-size: 3rem;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #ffffff, #cce7ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 2s infinite alternate;
+        }
+        p {
+            font-size: 1.2rem;
+            margin: 20px 0;
+            color: #cce7ff;
+        }
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #cce7ff, 0 0 20px #cce7ff, 0 0 30px #cce7ff;
+            }
+            to {
+                text-shadow: 0 0 20px #cce7ff, 0 0 30px #cce7ff, 0 0 40px #cce7ff;
+            }
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        .particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ffffff;
+            border-radius: 50%;
+            animation: float 5s linear infinite;
+            opacity: 0.8;
+        }
+        @keyframes float {
+            0% {
+                transform: translateY(100vh);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh);
+                opacity: 0;
+            }
+        }
+        .sunlight {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at top, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 70%);
+            opacity: 0.5;
+            pointer-events: none;
+            animation: sunlight 5s infinite alternate;
+        }
+        @keyframes sunlight {
+            0% {
+                transform: scale(1) translateY(0);
+            }
+            100% {
+                transform: scale(1.1) translateY(-10%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SORRY PERMANENTLY CLOSED</h1>
+        <h2>ขออภัยเพจนี้ปิดให้บริการถาวรแล้ว</h2>
+    </div>
+
+    <div class="sunlight"></div>
+
+    <script>
+        // Created by ChatGPT on 2025-01-13
+
+        // Generate floating particles
+        for (let i = 0; i < 100; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.animationDelay = Math.random() * 5 + 's';
+            particle.style.animationDuration = 5 + Math.random() * 5 + 's';
+            particle.style.background = `rgba(255, 255, 255, ${Math.random()})`;
+            document.body.appendChild(particle);
+        }
+    </script>
+</body>
+</html>
