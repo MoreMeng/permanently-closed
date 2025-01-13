@@ -93,6 +93,7 @@
 <body>
     <div class="container">
         <h1>SORRY PERMANENTLY CLOSED</h1>
+        <p id="url"></p>
         <h2>ขออภัยเพจนี้ปิดให้บริการถาวรแล้ว</h2>
     </div>
 
@@ -100,6 +101,7 @@
 
     <script>
         // Created by ChatGPT on 2025-01-13
+        document.getElementById('url').textContent = "URL: " + window.location.href;
 
         // Generate floating particles
         for (let i = 0; i < 100; i++) {
