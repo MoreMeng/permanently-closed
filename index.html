@@ -6,6 +6,10 @@
     <title>SORRY PERMANENTLY CLOSED</title>
     <style>
         /* Created by ChatGPT on 2025-01-13 */
+        html {
+            /* .sunlight scales past the viewport, so clip horizontal scroll here. */
+            overflow: hidden;
+        }
         body {
             margin: 0;
             font-family: 'Arial', sans-serif;
@@ -23,12 +27,14 @@
             position: relative;
             animation: fadeIn 2s ease-in-out;
         }
-        h1 {
-            font-size: 3rem;
-            text-transform: uppercase;
-            background: linear-gradient(90deg, #ffffff, #cce7ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        h1.liquid-title {
+            width: min(96vw, 1400px);
+            margin: 0 auto 8px;
+        }
+        h1.liquid-title svg {
+            display: block;
+            width: 100%;
+            height: auto;
             animation: glow 2s infinite alternate;
         }
         p {
@@ -38,10 +44,10 @@
         }
         @keyframes glow {
             from {
-                text-shadow: 0 0 10px #cce7ff, 0 0 20px #cce7ff, 0 0 30px #cce7ff;
+                filter: drop-shadow(0 0 8px rgba(204, 231, 255, 0.45));
             }
             to {
-                text-shadow: 0 0 20px #cce7ff, 0 0 30px #cce7ff, 0 0 40px #cce7ff;
+                filter: drop-shadow(0 0 22px rgba(204, 231, 255, 0.9));
             }
         }
         @keyframes fadeIn {
@@ -54,17 +60,22 @@
         }
         .particle {
             position: absolute;
-            width: 10px;
-            height: 10px;
-            background: #ffffff;
+            top: 0;
             border-radius: 50%;
-            animation: float 5s linear infinite;
-            opacity: 0.8;
+            opacity: 0;
+            animation: float 5s linear infinite both;
+            will-change: transform, opacity;
         }
         @keyframes float {
             0% {
                 transform: translateY(100vh);
-                opacity: 1;
+                opacity: 0;
+            }
+            15% {
+                opacity: 0.8;
+            }
+            85% {
+                opacity: 0.8;
             }
             100% {
                 transform: translateY(-100vh);
@@ -92,7 +103,38 @@
 </head>
 <body>
     <div class="container">
-        <h1>SORRY PERMANENTLY CLOSED</h1>
+        <h1 class="liquid-title">
+            <svg viewBox="105 0 790 70" role="img" aria-label="SORRY PERMANENTLY CLOSED">
+                <defs>
+                    <linearGradient id="waveGradient" gradientUnits="userSpaceOnUse" x1="0" y1="26" x2="0" y2="58">
+                        <stop offset="0%" stop-color="#ffffff" />
+                        <stop offset="100%" stop-color="#66c8ff" />
+                    </linearGradient>
+
+                    <!-- Seamless scrolling wave. Tile width 80 = wave period 20 * 4. -->
+                    <pattern id="waveFill" x="0" y="0" width="80" height="70" patternUnits="userSpaceOnUse">
+                        <g>
+                            <!-- Slow vertical bob, so the liquid surface breathes. -->
+                            <animateTransform attributeName="transform" type="translate"
+                                              values="0,0;0,4;0,0" dur="4s" repeatCount="indefinite"
+                                              calcMode="spline" keyTimes="0;0.5;1"
+                                              keySplines="0.4 0 0.6 1;0.4 0 0.6 1" />
+                            <path d="M-40 26 Q-30 21 -20 26 T0 26 T20 26 T40 26 T60 26 T80 26 T100 26 T120 26 V100 H-40 Z"
+                                  fill="url(#waveGradient)">
+                                <animateTransform attributeName="transform" begin="0s" dur="1.5s"
+                                                  type="translate" from="0,0" to="40,0" repeatCount="indefinite" />
+                            </path>
+                        </g>
+                    </pattern>
+                </defs>
+
+                <text x="500" y="52" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700"
+                      font-size="48" fill="#ffffff" fill-opacity="0.15">SORRY PERMANENTLY CLOSED</text>
+
+                <text x="500" y="52" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700"
+                      font-size="48" fill="url(#waveFill)">SORRY PERMANENTLY CLOSED</text>
+            </svg>
+        </h1>
         <p id="url"></p>
         <h2>ขออภัยเพจนี้ปิดให้บริการถาวรแล้ว</h2>
     </div>
@@ -109,10 +151,25 @@
         for (let i = 0; i < 100; i++) {
             const particle = document.createElement('div');
             particle.classList.add('particle');
+
+            // Mix of small and large bubbles. Bias toward small ones.
+            const size = Math.random() < 0.7
+                ? 3 + Math.random() * 4      // small: 3-7px
+                : 8 + Math.random() * 10;    // large: 8-18px
+
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
             particle.style.left = Math.random() * 100 + 'vw';
             particle.style.animationDelay = Math.random() * 5 + 's';
             particle.style.animationDuration = 5 + Math.random() * 5 + 's';
-            particle.style.background = `rgba(255, 255, 255, ${Math.random()})`;
+
+            // Larger bubbles look softer / more distant.
+            const alpha = size > 10
+                ? 0.08 + Math.random() * 0.35
+                : 0.3 + Math.random() * 0.7;
+            particle.style.background = `rgba(255, 255, 255, ${alpha})`;
+            particle.style.filter = size > 10 ? 'blur(1px)' : 'none';
+
             document.body.appendChild(particle);
         }
     </script>
